@@ -1,0 +1,34 @@
+type Query {
+    Project: String!
+    # allImages: []
+    # allVectors: []
+    # allIllustrations
+}
+
+type Mutation{
+    UploadFile(type:String keywords:[String] file:Upload):uploaded_file_response!
+}
+
+# Singular Types
+
+scalar Upload
+
+type Error {
+    subject:String
+    message:String
+}
+
+
+type message{
+    success:Boolean!
+    error:Error
+}
+
+# Multi Data Type
+
+type uploaded_file_response {
+    key:String,
+    error:Error
+}
+
+
