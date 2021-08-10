@@ -4,9 +4,19 @@ import { saveInDatabase } from "../../helper/SaveInDatabase"
 
 export const UploadFile = async (parent, args: Upload_Data, context, info): Promise<Uploaded_File_Response> => {
 
-    const Url = await Upload(args.file)
+    if (!args.preview) {
+        return {
+            key: null,
+            error: {
+                subject: "Preview",
+                message: "Illustrations require Preview"
+            }
+        }
+    }
 
-    const { key, error } = await saveInDatabase(args.type, Url, args.keywords)
+    const { url, previewUrl } = await Upload(args.file, args.preview)
+
+    const { key, error } = await saveInDatabase(args.type, url, args.keywords, previewUrl)
 
     return {
         key,

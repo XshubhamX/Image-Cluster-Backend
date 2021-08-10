@@ -13,8 +13,17 @@ exports.UploadFile = void 0;
 const Upload_1 = require("../../helper/Upload");
 const SaveInDatabase_1 = require("../../helper/SaveInDatabase");
 const UploadFile = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
-    const Url = yield Upload_1.Upload(args.file);
-    const { key, error } = yield SaveInDatabase_1.saveInDatabase(args.type, Url, args.keywords);
+    if (!args.preview) {
+        return {
+            key: null,
+            error: {
+                subject: "Preview",
+                message: "Illustrations require Preview"
+            }
+        };
+    }
+    const { url, previewUrl } = yield Upload_1.Upload(args.file, args.preview);
+    const { key, error } = yield SaveInDatabase_1.saveInDatabase(args.type, url, args.keywords, previewUrl);
     return {
         key,
         error

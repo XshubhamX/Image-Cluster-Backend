@@ -13,25 +13,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveIllustration = void 0;
-const Image_1 = __importDefault(require("../Model/Image"));
+const IllustrationKeyword_1 = __importDefault(require("../Model/IllustrationKeyword"));
+const IllustrationKeyword_2 = __importDefault(require("../Model/IllustrationKeyword"));
 const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
-const saveIllustration = (url, keywords) => __awaiter(void 0, void 0, void 0, function* () {
+const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
+const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
     try {
         for (let i = 0; i < n; i++) {
-            const foundKey = yield Image_1.default.findById(keywords[i]);
-            if (foundKey) {
-                foundKey.data.push(url);
-                yield foundKey.save();
-            }
-            else {
-                const newKey = new Image_1.default({
-                    _id: keywords[i],
-                    data: [url]
+            const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
+            if (!keyWordPresent) {
+                const newKeyWord = new AllKeywords_1.default({
+                    type: keywords[i]
                 });
+                yield newKeyWord.save();
+                const newKey = new IllustrationKeyword_1.default({
+                    type: keywords[i],
+                    data: []
+                });
+                newKey.data.push([url, previewUrl]);
                 yield newKey.save();
             }
+            else {
+                const foundKey = yield IllustrationKeyword_1.default.findOne({ type: keywords[i] });
+                if (foundKey) {
+                    foundKey.data.push([url, previewUrl]);
+                    yield foundKey.save();
+                }
+                else {
+                    const newKey = new IllustrationKeyword_1.default({
+                        type: keywords[i],
+                        data: []
+                    });
+                    newKey.data.push([url, previewUrl]);
+                    yield newKey.save();
+                }
+            }
         }
+        const newIllustration = new IllustrationKeyword_2.default({
+            file: url,
+            preview: previewUrl
+        });
+        yield newIllustration.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "illustration" });
         if (countObject) {
             const c = countObject.count + 1;
@@ -48,6 +71,7 @@ const saveIllustration = (url, keywords) => __awaiter(void 0, void 0, void 0, fu
         return { key: countObject.id, error: null };
     }
     catch (e) {
+        console.log(e);
         return {
             key: null, error: {
                 subject: "Error",

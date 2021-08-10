@@ -1,27 +1,55 @@
-import Image from "../Model/Image"
+import ImageKeyword from "../Model/ImageKeyword"
+import Image from "../Model/Images"
 import { File_Model } from "../Config/TypeDefs"
 import TotalCount from "../Model/TotalCount"
+import keyWord from "../Model/AllKeywords"
 
-export const saveImage = async (url, keywords) => {
+export const saveImage = async (url, keywords, previewUrl) => {
 
     let n = keywords.length
 
     try {
         for (let i = 0; i < n; i++) {
-            const foundKey: File_Model = await Image.findById(keywords[i])
-            if (foundKey) {
-                foundKey.data.push(url)
-                await foundKey.save()
-            }
-            else {
-                const newKey: any = new Image({
-                    _id: keywords[i],
-                    data: [url]
+            const keyWordPresent = await keyWord.find({ type: keywords[i] })
+            if (!keyWordPresent) {
+
+                const newKeyWord = new keyWord({
+                    type: keywords[i]
                 })
+                await newKeyWord.save()
+
+                const newKey: File_Model = new ImageKeyword({
+                    type: keywords[i],
+                    data: []
+                })
+                newKey.data.push([url, previewUrl])
 
                 await newKey.save()
             }
+
+            else {
+                const foundKey: File_Model = await ImageKeyword.findOne({ type: keywords[i] })
+                if (foundKey) {
+                    foundKey.data.push([url, previewUrl])
+                    await foundKey.save()
+                }
+                else {
+                    const newKey: File_Model = new ImageKeyword({
+                        type: keywords[i],
+                        data: []
+                    })
+                    newKey.data.push([url, previewUrl])
+
+                    await newKey.save()
+                }
+            }
         }
+
+        const newImage = new Image({
+            file: url
+        })
+
+        await newImage.save()
 
         let countObject: any = await TotalCount.findOne({ type: "image" })
         if (countObject) {
@@ -40,6 +68,7 @@ export const saveImage = async (url, keywords) => {
 
         return { key: countObject.id, error: null }
     } catch (e) {
+        console.log(e)
         return {
             key: null, error: {
                 subject: "Error",
@@ -47,7 +76,4 @@ export const saveImage = async (url, keywords) => {
             }
         }
     }
-
-
-
 }

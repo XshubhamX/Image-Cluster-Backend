@@ -13,25 +13,47 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveImage = void 0;
-const Image_1 = __importDefault(require("../Model/Image"));
+const ImageKeyword_1 = __importDefault(require("../Model/ImageKeyword"));
+const Images_1 = __importDefault(require("../Model/Images"));
 const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
-const saveImage = (url, keywords) => __awaiter(void 0, void 0, void 0, function* () {
+const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
+const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
     try {
         for (let i = 0; i < n; i++) {
-            const foundKey = yield Image_1.default.findById(keywords[i]);
-            if (foundKey) {
-                foundKey.data.push(url);
-                yield foundKey.save();
-            }
-            else {
-                const newKey = new Image_1.default({
-                    _id: keywords[i],
-                    data: [url]
+            const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
+            if (!keyWordPresent) {
+                const newKeyWord = new AllKeywords_1.default({
+                    type: keywords[i]
                 });
+                yield newKeyWord.save();
+                const newKey = new ImageKeyword_1.default({
+                    type: keywords[i],
+                    data: []
+                });
+                newKey.data.push([url, previewUrl]);
                 yield newKey.save();
             }
+            else {
+                const foundKey = yield ImageKeyword_1.default.findOne({ type: keywords[i] });
+                if (foundKey) {
+                    foundKey.data.push([url, previewUrl]);
+                    yield foundKey.save();
+                }
+                else {
+                    const newKey = new ImageKeyword_1.default({
+                        type: keywords[i],
+                        data: []
+                    });
+                    newKey.data.push([url, previewUrl]);
+                    yield newKey.save();
+                }
+            }
         }
+        const newImage = new Images_1.default({
+            file: url
+        });
+        yield newImage.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "image" });
         if (countObject) {
             const c = countObject.count + 1;
@@ -48,6 +70,7 @@ const saveImage = (url, keywords) => __awaiter(void 0, void 0, void 0, function*
         return { key: countObject.id, error: null };
     }
     catch (e) {
+        console.log(e);
         return {
             key: null, error: {
                 subject: "Error",

@@ -13,17 +13,17 @@ exports.saveInDatabase = void 0;
 const SaveImage_1 = require("./SaveImage");
 const SaveVector_1 = require("./SaveVector");
 const SaveIllustrator_1 = require("./SaveIllustrator");
-const saveInDatabase = (type, url, keywords) => __awaiter(void 0, void 0, void 0, function* () {
+const saveInDatabase = (type, url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let data;
     switch (type) {
         case ("image"):
-            data = yield SaveImage_1.saveImage(url, keywords);
+            data = yield SaveImage_1.saveImage(url, keywords, previewUrl);
             break;
         case ("vector"):
             data = yield SaveVector_1.saveVector(url, keywords);
             break;
         default:
-            data = yield SaveIllustrator_1.saveIllustration(url, keywords);
+            data = yield SaveIllustrator_1.saveIllustration(url, keywords, previewUrl);
     }
     return data;
 });

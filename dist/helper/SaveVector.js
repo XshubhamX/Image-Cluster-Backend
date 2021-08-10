@@ -13,25 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveVector = void 0;
-const Illustration_1 = __importDefault(require("../Model/Illustration"));
+const VectorGraphicsKeyword_1 = __importDefault(require("../Model/VectorGraphicsKeyword"));
+const VectorGraphics_1 = __importDefault(require("../Model/VectorGraphics"));
 const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
+const chalk_1 = require("chalk");
 const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
     try {
         for (let i = 0; i < n; i++) {
-            const foundKey = yield Illustration_1.default.findById(keywords[i]);
+            const foundKey = yield VectorGraphicsKeyword_1.default.findOne({ type: chalk_1.keyword[i] });
             if (foundKey) {
                 foundKey.data.push(url);
                 yield foundKey.save();
             }
             else {
-                const newKey = new Illustration_1.default({
-                    _id: keywords[i],
-                    data: [url]
+                const newKey = new VectorGraphicsKeyword_1.default({
+                    type: keywords[i],
+                    data: []
                 });
+                newKey.data.push(url);
                 yield newKey.save();
             }
         }
+        const newVector = new VectorGraphics_1.default({
+            file: url
+        });
+        yield newVector.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "vector" });
         if (countObject) {
             const c = countObject.count + 1;
@@ -48,6 +55,7 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
         return { key: countObject.id, error: null };
     }
     catch (e) {
+        console.log(e);
         return {
             key: null, error: {
                 subject: "Error",

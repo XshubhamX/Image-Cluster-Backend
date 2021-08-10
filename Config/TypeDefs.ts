@@ -1,3 +1,4 @@
+import { NumberOfHumanWorkersPerDataObject } from "aws-sdk/clients/sagemaker"
 import { Stream } from "stream"
 
 export type Error = {
@@ -21,6 +22,7 @@ export type Upload_Data = {
     type: string
     keywords: [string]
     file: File
+    preview: File
 }
 
 export type Uploaded_File_Response = {
@@ -29,11 +31,54 @@ export type Uploaded_File_Response = {
 }
 
 export type File_Model = {
-    data: [string]
+    data: [[string, string]]
     save: () => {}
 }
 
 export type uploaded_file_response = {
     key: String,
     error: Error
+}
+
+export type s3_data = {
+    Location: string
+}
+
+export type Get_Args = {
+    skip: number,
+    limit: number
+}
+
+export type Image_Data = {
+    url: string
+}
+
+export type Illustration_Data = {
+    url: string
+    preview: string
+}
+
+export type Image_Return_Data = {
+    images: Image_Data[],
+    error: Error
+}
+
+export type Illustration_Return_Data = {
+    illus: Illustration_Data[],
+    error: Error
+}
+
+export type Id_KeyMap = {
+    id: string
+    type: string
+}
+
+export type Search_Data = {
+    payload: Id_KeyMap[]
+    error: Error
+}
+
+export type Search_Filters = {
+    field: string
+    key: string
 }

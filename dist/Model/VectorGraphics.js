@@ -4,10 +4,14 @@ exports.default = void 0;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const vectorSchema = new Schema({
-    data: [{
-            type: String,
-            required: true,
-        }]
+    file: {
+        type: String,
+        required: true
+    },
+    preview: {
+        type: String,
+        required: true
+    }
 });
 const VectorSchema = mongoose.model("vectorSchema", vectorSchema);
 exports.default = VectorSchema;

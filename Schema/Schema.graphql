@@ -1,12 +1,13 @@
 type Query {
     Project: String!
-    # allImages: []
+    allImages: Image_Return_Data
     # allVectors: []
-    # allIllustrations
+    allIllustrations: Illustration_Return_Data
+    search(key:String!):Search_Data
 }
 
 type Mutation{
-    UploadFile(type:String keywords:[String] file:Upload):uploaded_file_response!
+    UploadFile(field:String keywords:[String] file:Upload preview:Upload):uploaded_file_response!
 }
 
 # Singular Types
@@ -17,8 +18,6 @@ type Error {
     subject:String
     message:String
 }
-
-
 type message{
     success:Boolean!
     error:Error
@@ -31,4 +30,31 @@ type uploaded_file_response {
     error:Error
 }
 
+type Image_Data {
+    url:String!
+}
 
+type Illustration_Data {
+    url:String!
+    preview:String!
+}
+
+type Image_Return_Data {
+    images:[Image_Data]
+    error:Error
+}
+
+type Illustration_Return_Data {
+    illus:[Illustration_Data]
+    error:Error
+}
+
+type Id_KeyMap {
+    id:ID
+    type:String
+}
+
+type Search_Data {
+    payload: [Id_KeyMap]
+    error:Error
+}
