@@ -21,8 +21,13 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
     let n = keywords.length;
     try {
         for (let i = 0; i < n; i++) {
+            let x = keywords[i].toLowerCase();
+            console.log(keywords[i]);
+            console.log(x);
+            keywords[i] = x;
+            console.log(keywords[i]);
             const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
-            if (!keyWordPresent) {
+            if (!keyWordPresent.length) {
                 const newKeyWord = new AllKeywords_1.default({
                     type: keywords[i]
                 });
@@ -51,7 +56,8 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
             }
         }
         const newImage = new Images_1.default({
-            file: url
+            file: url,
+            preview: previewUrl
         });
         yield newImage.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "image" });

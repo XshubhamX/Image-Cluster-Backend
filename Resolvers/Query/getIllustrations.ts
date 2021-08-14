@@ -1,7 +1,7 @@
 import Illustrations from "../../Model/Illustration"
 import { Get_Args, Illustration_Data, Illustration_Return_Data } from "../../Config/TypeDefs"
 
-export const allImages = async (parent, args: Get_Args, context, info): Promise<Illustration_Return_Data> => {
+export const allIllustrations = async (parent, args: Get_Args, context, info): Promise<Illustration_Return_Data> => {
 
     let illus: Illustration_Data[];
     try {

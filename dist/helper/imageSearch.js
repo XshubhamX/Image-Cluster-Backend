@@ -15,10 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.imageSearch = void 0;
 const ImageKeyword_1 = __importDefault(require("../Model/ImageKeyword"));
 const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
-    let elements = [];
+    let elements;
     try {
+        let x = new RegExp(key);
+        console.log(x);
         elements = yield ImageKeyword_1.default.find({
-            subject: {
+            type: {
                 $regex: new RegExp(key),
             },
         }).select("type");

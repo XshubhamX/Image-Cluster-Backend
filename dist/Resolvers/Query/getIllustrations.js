@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.allImages = void 0;
+exports.allIllustrations = void 0;
 const Illustration_1 = __importDefault(require("../../Model/Illustration"));
-const allImages = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
+const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
     let illus;
     try {
         illus = yield Illustration_1.default.find(null, null, {
@@ -45,5 +45,5 @@ const allImages = (parent, args, context, info) => __awaiter(void 0, void 0, voi
         };
     }
 });
-exports.allImages = allImages;
+exports.allIllustrations = allIllustrations;
 //# sourceMappingURL=getIllustrations.js.map

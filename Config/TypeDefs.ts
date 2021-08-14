@@ -50,11 +50,12 @@ export type Get_Args = {
 }
 
 export type Image_Data = {
-    url: string
+    file: string
+    preview: string
 }
 
 export type Illustration_Data = {
-    url: string
+    file: string
     preview: string
 }
 
@@ -74,7 +75,7 @@ export type Id_KeyMap = {
 }
 
 export type Search_Data = {
-    payload: Id_KeyMap[]
+    payload: [Id_KeyMap]
     error: Error
 }
 

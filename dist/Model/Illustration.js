@@ -13,6 +13,6 @@ const illustrationSchema = new Schema({
         required: true
     }
 });
-const IllustrationSchema = mongoose.model("imageSchema", illustrationSchema);
+const IllustrationSchema = mongoose.model("illustrationSchema", illustrationSchema);
 exports.default = IllustrationSchema;
 //# sourceMappingURL=Illustration.js.map

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.illustrationSearch = void 0;
 const IllustrationKeyword_1 = __importDefault(require("../Model/IllustrationKeyword"));
 const illustrationSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
-    let elements = [];
+    let elements;
     try {
         elements = yield IllustrationKeyword_1.default.find({
             subject: {

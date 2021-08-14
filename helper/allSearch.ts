@@ -1,11 +1,11 @@
 import KeyWords from "../Model/AllKeywords"
-import { Search_Data } from "../Config/TypeDefs"
+import { Search_Data, Id_KeyMap } from "../Config/TypeDefs"
 
 export const allSearch = async (key): Promise<Search_Data> => {
-    let elements = []
+    let elements: [Id_KeyMap]
     try {
         elements = await KeyWords.find({
-            subject: {
+            type: {
                 $regex: new RegExp(key),
             },
         }).select("type")

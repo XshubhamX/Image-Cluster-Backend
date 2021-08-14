@@ -16,6 +16,7 @@ import bodyParser from "body-parser"
 import databse from "./Database/db";
 import Query from "./Resolvers/Query";
 import Mutation from "./Resolvers/Mutation"
+import { download } from "./Middlewares/download"
 
 dotenv.config()
 
@@ -37,6 +38,8 @@ const pubsub = new PubSub();
 
 const app = express();
 
+app.use(bodyParser.json())
+
 app.use(apiLimiter);
 app.use(xss());
 app.use(
@@ -53,6 +56,8 @@ app.use(graphqlUploadExpress());
 app.get("/", (req, res) =>
     res.json({ "KPMG Image Cluster": "v1", status: "healthy" })
 )
+
+app.use("/download", download)
 
 const httpServer = http.createServer(app);
 

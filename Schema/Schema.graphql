@@ -1,13 +1,13 @@
 type Query {
     Project: String!
-    allImages: Image_Return_Data
+    allImages(skip:Int!,limit:Int!): Image_Return_Data
     # allVectors: []
-    allIllustrations: Illustration_Return_Data
-    search(key:String!):Search_Data
+    allIllustrations(skip:Int!,limit:Int!): Illustration_Return_Data
+    search(key:String! field:String!):Search_Data
 }
 
 type Mutation{
-    UploadFile(field:String keywords:[String] file:Upload preview:Upload):uploaded_file_response!
+    UploadFile(field:String keywords:[String] type:String file:Upload preview:Upload):uploaded_file_response!
 }
 
 # Singular Types
@@ -31,11 +31,12 @@ type uploaded_file_response {
 }
 
 type Image_Data {
-    url:String!
+    file:String
+    preview:String
 }
 
 type Illustration_Data {
-    url:String!
+    file:String
     preview:String!
 }
 

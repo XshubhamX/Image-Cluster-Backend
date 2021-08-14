@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.allSearch = void 0;
 const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
 const allSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
-    let elements = [];
+    let elements;
     try {
         elements = yield AllKeywords_1.default.find({
-            subject: {
+            type: {
                 $regex: new RegExp(key),
             },
         }).select("type");

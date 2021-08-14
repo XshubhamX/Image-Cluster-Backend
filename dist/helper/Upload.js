@@ -16,6 +16,7 @@ exports.Upload = void 0;
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const shortid_1 = __importDefault(require("shortid"));
 const util_1 = require("util");
+//
 var s3 = new aws_sdk_1.default.S3({
     accessKeyId: process.env.ACCESS_KEY_ID,
     secretAccessKey: process.env.SECRET_KEY,
@@ -25,21 +26,23 @@ util_1.promisify(s3.upload).bind(s3);
 const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* () {
     let { createReadStream, filename } = yield file;
     let fileStream = createReadStream();
-    let key = `/uploads/${shortid_1.default.generate()}-${filename}`;
+    let key = `uploads/${shortid_1.default.generate()}-${filename}`;
     let params = {
         Bucket: process.env.DESTINATION_BUCKET_NAME,
         Key: key,
         Body: fileStream
     };
-    let url = `https://kpmgimagecluster.s3.ap-south-1.amazonaws.com/${key}`;
+    let url = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
     yield s3.upload(params, (err, data) => {
         url = data.Location;
         console.log(data.Location);
     });
+    let previewUrl;
     if (preview) {
-        let { createReadStream, filename } = yield file;
+        let { createReadStream, filename } = yield preview;
         fileStream = createReadStream();
-        key = `${shortid_1.default.generate()}-${filename}`;
+        key = `uploads/${shortid_1.default.generate()}-${filename}`;
+        previewUrl = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
         params = {
             Bucket: process.env.DESTINATION_BUCKET_NAME,
             Key: key,
@@ -50,7 +53,7 @@ const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* ()
             console.log(data.Location);
         });
     }
-    return { url: "1", previewUrl: "1" };
+    return { url, previewUrl };
 });
 exports.Upload = Upload;
 //# sourceMappingURL=Upload.js.map

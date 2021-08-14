@@ -3,7 +3,7 @@ import { illustrationSearch } from "../../helper/illustrationSearch"
 import { imageSearch } from "../../helper/imageSearch"
 import { Search_Data, Search_Filters } from "../../Config/TypeDefs"
 
-export const searchClasses = async (parent, args: Search_Filters) => {
+export const search = async (parent, args: Search_Filters) => {
 
     let elements: Search_Data
 

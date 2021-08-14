@@ -14,15 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveIllustration = void 0;
 const IllustrationKeyword_1 = __importDefault(require("../Model/IllustrationKeyword"));
-const IllustrationKeyword_2 = __importDefault(require("../Model/IllustrationKeyword"));
+const Illustration_1 = __importDefault(require("../Model/Illustration"));
 const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
 const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
 const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
+    console.log(keywords);
     try {
         for (let i = 0; i < n; i++) {
+            let x = keywords[i].toLowerCase();
+            keywords[i] = x;
             const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
-            if (!keyWordPresent) {
+            if (!keyWordPresent.length) {
                 const newKeyWord = new AllKeywords_1.default({
                     type: keywords[i]
                 });
@@ -50,7 +53,7 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
                 }
             }
         }
-        const newIllustration = new IllustrationKeyword_2.default({
+        const newIllustration = new Illustration_1.default({
             file: url,
             preview: previewUrl
         });

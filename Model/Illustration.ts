@@ -13,6 +13,6 @@ const illustrationSchema = new Schema({
     }
 });
 
-const IllustrationSchema = mongoose.model("imageSchema", illustrationSchema);
+const IllustrationSchema = mongoose.model("illustrationSchema", illustrationSchema);
 
 export { IllustrationSchema as default };

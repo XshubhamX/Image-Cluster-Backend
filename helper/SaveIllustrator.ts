@@ -1,5 +1,5 @@
 import IllustrationKeyword from "../Model/IllustrationKeyword"
-import Illustration from "../Model/IllustrationKeyword"
+import Illustration from "../Model/Illustration"
 import { File_Model } from "../Config/TypeDefs"
 import TotalCount from "../Model/TotalCount"
 import KeyWord from "../Model/AllKeywords"
@@ -8,10 +8,14 @@ export const saveIllustration = async (url: string, keywords: string[], previewU
 
     let n = keywords.length
 
+    console.log(keywords)
+
     try {
         for (let i = 0; i < n; i++) {
+            let x = keywords[i].toLowerCase()
+            keywords[i] = x
             const keyWordPresent = await KeyWord.find({ type: keywords[i] })
-            if (!keyWordPresent) {
+            if (!keyWordPresent.length) {
 
                 const newKeyWord = new KeyWord({
                     type: keywords[i]

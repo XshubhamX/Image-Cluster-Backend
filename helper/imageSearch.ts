@@ -1,11 +1,13 @@
 import ImageKeyword from "../Model/ImageKeyword"
-import { Search_Data } from "../Config/TypeDefs"
+import { Search_Data, Id_KeyMap } from "../Config/TypeDefs"
 
 export const imageSearch = async (key): Promise<Search_Data> => {
-    let elements = []
+    let elements: [Id_KeyMap]
     try {
+        let x = new RegExp(key)
+        console.log(x)
         elements = await ImageKeyword.find({
-            subject: {
+            type: {
                 $regex: new RegExp(key),
             },
         }).select("type")

@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchClasses = void 0;
+exports.search = void 0;
 const allSearch_1 = require("../../helper/allSearch");
 const illustrationSearch_1 = require("../../helper/illustrationSearch");
 const imageSearch_1 = require("../../helper/imageSearch");
-const searchClasses = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
+const search = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
     let elements;
     switch (args.field) {
         case ("image"):
@@ -27,5 +27,5 @@ const searchClasses = (parent, args) => __awaiter(void 0, void 0, void 0, functi
     }
     return elements;
 });
-exports.searchClasses = searchClasses;
+exports.search = search;
 //# sourceMappingURL=search.js.map
