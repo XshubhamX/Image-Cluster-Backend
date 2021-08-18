@@ -11,10 +11,7 @@ export const saveImage = async (url, keywords, previewUrl) => {
     try {
         for (let i = 0; i < n; i++) {
             let x = keywords[i].toLowerCase()
-            console.log(keywords[i])
-            console.log(x)
             keywords[i] = x
-            console.log(keywords[i])
             const keyWordPresent = await keyWord.find({ type: keywords[i] })
             if (!keyWordPresent.length) {
 

@@ -10,7 +10,7 @@ export const saveInDatabase = async (type: string, url: string, keywords: [strin
 
     switch (type) {
         case ("image"):
-            data = await saveImage(url, keywords,previewUrl)
+            data = await saveImage(url, keywords, previewUrl)
             break
         case ("vector"):
             data = await saveVector(url, keywords)

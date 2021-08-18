@@ -22,10 +22,7 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
     try {
         for (let i = 0; i < n; i++) {
             let x = keywords[i].toLowerCase();
-            console.log(keywords[i]);
-            console.log(x);
             keywords[i] = x;
-            console.log(keywords[i]);
             const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
             if (!keyWordPresent.length) {
                 const newKeyWord = new AllKeywords_1.default({

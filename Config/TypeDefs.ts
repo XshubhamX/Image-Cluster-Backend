@@ -83,3 +83,21 @@ export type Search_Filters = {
     field: string
     key: string
 }
+
+export type File_Set = {
+    file: String
+    preview: String
+}
+
+export type File_Return_Data = {
+    files: File_Set[]
+    error: Error
+}
+
+export type File_Arr = [
+    string, string
+]
+
+export type Store_Files_Acc_Key = {
+    data: File_Arr[]
+}

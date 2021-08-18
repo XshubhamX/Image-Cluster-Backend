@@ -14,14 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.imageSearch = void 0;
 const ImageKeyword_1 = __importDefault(require("../Model/ImageKeyword"));
+const trimmer_1 = __importDefault(require("trimmer"));
 const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
     let elements;
+    key = key.toLowerCase();
+    key = trimmer_1.default.left(key);
+    key = trimmer_1.default.right(key);
+    if (key === "") {
+        return {
+            payload: null,
+            error: {
+                subject: "Keyword",
+                message: "No keyword"
+            }
+        };
+    }
     try {
         let x = new RegExp(key);
-        console.log(x);
         elements = yield ImageKeyword_1.default.find({
             type: {
-                $regex: new RegExp(key),
+                $regex: x,
             },
         }).select("type");
     }

@@ -1,8 +1,12 @@
 import KeyWords from "../Model/AllKeywords"
+import trimmer from "trimmer"
 import { Search_Data, Id_KeyMap } from "../Config/TypeDefs"
 
-export const allSearch = async (key): Promise<Search_Data> => {
+export const allSearch = async (key:string): Promise<Search_Data> => {
     let elements: [Id_KeyMap]
+    key = key.toLowerCase()
+    key = trimmer.left(key)
+    key = trimmer.right(key)
     try {
         elements = await KeyWords.find({
             type: {

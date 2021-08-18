@@ -14,8 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.illustrationSearch = void 0;
 const IllustrationKeyword_1 = __importDefault(require("../Model/IllustrationKeyword"));
+const trimmer_1 = __importDefault(require("trimmer"));
 const illustrationSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
     let elements;
+    key = key.toLowerCase();
+    key = trimmer_1.default.left(key);
+    key = trimmer_1.default.right(key);
     try {
         elements = yield IllustrationKeyword_1.default.find({
             subject: {

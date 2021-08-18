@@ -1,8 +1,12 @@
 import IllustrationKeyword from "../Model/IllustrationKeyword"
+import trimmer from "trimmer"
 import { Search_Data, Id_KeyMap } from "../Config/TypeDefs"
 
-export const illustrationSearch = async (key): Promise<Search_Data> => {
+export const illustrationSearch = async (key: string): Promise<Search_Data> => {
     let elements: [Id_KeyMap]
+    key = key.toLowerCase()
+    key = trimmer.left(key)
+    key = trimmer.right(key)
     try {
         elements = await IllustrationKeyword.find({
             subject: {

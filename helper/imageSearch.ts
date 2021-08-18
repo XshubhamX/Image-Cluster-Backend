@@ -1,14 +1,27 @@
 import ImageKeyword from "../Model/ImageKeyword"
+import trimmer from "trimmer"
 import { Search_Data, Id_KeyMap } from "../Config/TypeDefs"
 
-export const imageSearch = async (key): Promise<Search_Data> => {
+export const imageSearch = async (key: string): Promise<Search_Data> => {
     let elements: [Id_KeyMap]
+    key = key.toLowerCase()
+    key = trimmer.left(key)
+    key = trimmer.right(key)
+    if (key === "") {
+        return {
+            payload: null,
+            error:
+            {
+                subject: "Keyword",
+                message: "No keyword"
+            }
+        }
+    }
     try {
         let x = new RegExp(key)
-        console.log(x)
         elements = await ImageKeyword.find({
             type: {
-                $regex: new RegExp(key),
+                $regex: x,
             },
         }).select("type")
 

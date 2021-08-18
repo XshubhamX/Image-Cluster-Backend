@@ -4,6 +4,7 @@ type Query {
     # allVectors: []
     allIllustrations(skip:Int!,limit:Int!): Illustration_Return_Data
     search(key:String! field:String!):Search_Data
+    fileFromKeyword(field:String!, key:String!):File_Return_Data
 }
 
 type Mutation{
@@ -38,6 +39,16 @@ type Image_Data {
 type Illustration_Data {
     file:String
     preview:String!
+}
+
+type File_Set {
+    file:String
+    preview:String
+}
+
+type File_Return_Data {
+    files:[File_Set]
+    error:Error
 }
 
 type Image_Return_Data {
