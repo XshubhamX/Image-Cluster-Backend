@@ -4,12 +4,12 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start":"node dist/server.js",
     "serve": "node dist/server.js",
-    "build": "npm run build-ts",
+    "build": "npm run postinstall",
     "watch-node": "nodemon -r dotenv/config dist/server.js -ext js,graphql",
     "clean": "rimraf ./dist",
-    "build-ts": "tsc",
+    "postinstall": "tsc",
     "watch-ts": "tsc -w"
   },
   "author": "",
