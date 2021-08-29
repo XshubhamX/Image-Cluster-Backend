@@ -2,9 +2,9 @@
   "name": "image-library",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "/Server.ts",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/Server.js",
     "watch-node": "nodemon -r dotenv/config dist/server.js -ext js,graphql",
     "clean": "rimraf ./dist",
     "heroku-postbuild": "tsc",
