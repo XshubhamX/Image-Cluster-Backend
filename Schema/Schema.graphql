@@ -1,14 +1,21 @@
 type Query {
-    Project: String!
-    allImages(skip:Int!,limit:Int!): Image_Return_Data
-    # allVectors: []
-    allIllustrations(skip:Int!,limit:Int!): Illustration_Return_Data
-    search(key:String! field:String!):Search_Data
-    fileFromKeyword(field:String!, key:String!):File_Return_Data
+  Project: String!
+  allImages(skip: Int!, limit: Int!): Image_Return_Data
+  # allVectors: []
+  allIllustrations(skip: Int!, limit: Int!): Illustration_Return_Data
+  search(key: String!, field: String!): Search_Data
+  fileFromKeyword(field: String, key: String
+  ): File_Return_Data
 }
 
-type Mutation{
-    UploadFile(field:String keywords:[String] type:String file:Upload preview:Upload):uploaded_file_response!
+type Mutation {
+  UploadFile(
+    field: String
+    keywords: [String]
+    type: String
+    file: Upload
+    preview: Upload
+  ): uploaded_file_response!
 }
 
 # Singular Types
@@ -16,57 +23,57 @@ type Mutation{
 scalar Upload
 
 type Error {
-    subject:String
-    message:String
+  subject: String
+  message: String
 }
-type message{
-    success:Boolean!
-    error:Error
+type message {
+  success: Boolean!
+  error: Error
 }
 
 # Multi Data Type
 
 type uploaded_file_response {
-    key:String,
-    error:Error
+  key: String
+  error: Error
 }
 
 type Image_Data {
-    file:String
-    preview:String
+  file: String
+  preview: String
 }
 
 type Illustration_Data {
-    file:String
-    preview:String!
+  file: String
+  preview: String!
 }
 
 type File_Set {
-    file:String
-    preview:String
+  file: String
+  preview: String
 }
 
 type File_Return_Data {
-    files:[File_Set]
-    error:Error
+  files: [File_Set]
+  error: Error
 }
 
 type Image_Return_Data {
-    images:[Image_Data]
-    error:Error
+  images: [Image_Data]
+  error: Error
 }
 
 type Illustration_Return_Data {
-    illus:[Illustration_Data]
-    error:Error
+  illus: [Illustration_Data]
+  error: Error
 }
 
 type Id_KeyMap {
-    id:ID
-    type:String
+  id: ID
+  type: String
 }
 
 type Search_Data {
-    payload: [Id_KeyMap]
-    error:Error
+  payload: [String]
+  error: Error
 }

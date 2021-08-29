@@ -22,7 +22,7 @@ const illustrationSearch = (key) => __awaiter(void 0, void 0, void 0, function* 
     key = trimmer_1.default.right(key);
     try {
         elements = yield IllustrationKeyword_1.default.find({
-            subject: {
+            type: {
                 $regex: new RegExp(key),
             },
         }).select("type");
@@ -32,8 +32,8 @@ const illustrationSearch = (key) => __awaiter(void 0, void 0, void 0, function* 
             payload: null,
             error: {
                 subject: "Query Text",
-                message: e
-            }
+                message: e,
+            },
         };
     }
     if (!elements.length) {
@@ -41,13 +41,14 @@ const illustrationSearch = (key) => __awaiter(void 0, void 0, void 0, function* 
             payload: null,
             error: {
                 subject: "Query Text",
-                message: "No files"
-            }
+                message: "No files",
+            },
         };
     }
+    let elems = elements.map((e) => e.type);
     return {
-        payload: elements,
-        error: null
+        payload: elems,
+        error: null,
     };
 });
 exports.illustrationSearch = illustrationSearch;

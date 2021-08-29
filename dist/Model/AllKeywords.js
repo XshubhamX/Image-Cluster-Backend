@@ -6,8 +6,20 @@ const Schema = mongoose.Schema;
 const allKeywordsSchema = new Schema({
     type: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
+    data: [
+        [
+            {
+                type: String,
+                required: true,
+            },
+            {
+                type: String,
+                required: true,
+            },
+        ],
+    ],
 });
 const AllKeywordsSchema = mongoose.model("allKeywords", allKeywordsSchema);
 exports.default = AllKeywordsSchema;

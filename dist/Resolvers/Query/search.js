@@ -15,11 +15,20 @@ const illustrationSearch_1 = require("../../helper/illustrationSearch");
 const imageSearch_1 = require("../../helper/imageSearch");
 const search = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
     let elements;
+    if (!args.key.length) {
+        return {
+            payload: null,
+            error: {
+                message: "empty string",
+                subject: "string empty",
+            },
+        };
+    }
     switch (args.field) {
-        case ("image"):
+        case "image":
             elements = yield imageSearch_1.imageSearch(args.key);
             break;
-        case ("illustration"):
+        case "illustration":
             elements = yield illustrationSearch_1.illustrationSearch(args.key);
             break;
         default:

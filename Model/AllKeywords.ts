@@ -3,10 +3,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const allKeywordsSchema = new Schema({
-    type: {
+  type: {
+    type: String,
+    required: true,
+  },
+  data: [
+    [
+      {
         type: String,
-        required: true
-    }
+        required: true,
+      },
+      {
+        type: String,
+        required: true,
+      },
+    ],
+  ],
 });
 
 const AllKeywordsSchema = mongoose.model("allKeywords", allKeywordsSchema);

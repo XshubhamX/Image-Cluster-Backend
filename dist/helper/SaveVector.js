@@ -21,7 +21,9 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
     let n = keywords.length;
     try {
         for (let i = 0; i < n; i++) {
-            const foundKey = yield VectorGraphicsKeyword_1.default.findOne({ type: chalk_1.keyword[i] });
+            const foundKey = yield VectorGraphicsKeyword_1.default.findOne({
+                type: chalk_1.keyword[i],
+            });
             if (foundKey) {
                 foundKey.data.push(url);
                 yield foundKey.save();
@@ -29,14 +31,14 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
             else {
                 const newKey = new VectorGraphicsKeyword_1.default({
                     type: keywords[i],
-                    data: []
+                    data: [],
                 });
                 newKey.data.push(url);
                 yield newKey.save();
             }
         }
         const newVector = new VectorGraphics_1.default({
-            file: url
+            file: url,
         });
         yield newVector.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "vector" });
@@ -47,8 +49,8 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
         }
         else {
             countObject = new TotalCount_1.default({
-                type: 'vector',
-                count: 1
+                type: "vector",
+                count: 1,
             });
             yield countObject.save();
         }
@@ -57,10 +59,11 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
     catch (e) {
         console.log(e);
         return {
-            key: null, error: {
+            key: null,
+            error: {
                 subject: "Error",
-                message: e
-            }
+                message: e,
+            },
         };
     }
 });

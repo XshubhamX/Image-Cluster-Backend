@@ -1,9 +1,7 @@
-import { UploadFile } from "./Mutation/UploadFile"
+import { UploadFile } from "./Mutation/UploadFile";
 
 const Mutation = {
-    UploadFile
-}
+  UploadFile,
+};
 
-//
-
-export { Mutation as default }
+export { Mutation as default };

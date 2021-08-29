@@ -24,19 +24,23 @@ var s3 = new aws_sdk_1.default.S3({
 });
 util_1.promisify(s3.upload).bind(s3);
 const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(file);
+    console.log(preview);
     let { createReadStream, filename } = yield file;
     let fileStream = createReadStream();
     let key = `uploads/${shortid_1.default.generate()}-${filename}`;
     let params = {
         Bucket: process.env.DESTINATION_BUCKET_NAME,
         Key: key,
-        Body: fileStream
+        Body: fileStream,
     };
     let url = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
-    yield s3.upload(params, (err, data) => {
-        url = data.Location;
-        console.log(data.Location);
-    });
+    try {
+        yield s3.upload(params, (e, d) => console.log(d));
+    }
+    catch (e) {
+        console.log(e);
+    }
     let previewUrl;
     if (preview) {
         let { createReadStream, filename } = yield preview;
@@ -46,12 +50,9 @@ const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* ()
         params = {
             Bucket: process.env.DESTINATION_BUCKET_NAME,
             Key: key,
-            Body: fileStream
+            Body: fileStream,
         };
-        yield s3.upload(params, (err, data) => {
-            url = data.Location;
-            console.log(data.Location);
-        });
+        yield s3.upload(params, (e, d) => console.log(d));
     }
     return { url, previewUrl };
 });

@@ -26,8 +26,8 @@ const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void
                 illus: null,
                 error: {
                     subject: "No More illustrations",
-                    message: "No more illustrations"
-                }
+                    message: "No more illustrations",
+                },
             };
         }
         return {
@@ -40,8 +40,8 @@ const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void
             illus: null,
             error: {
                 subject: "error",
-                message: "e"
-            }
+                message: "e",
+            },
         };
     }
 });

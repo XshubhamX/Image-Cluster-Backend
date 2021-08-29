@@ -12,7 +12,7 @@ const Query = {
     search: search_1.search,
     allImages: getImages_1.allImages,
     allIllustrations: getIllustrations_1.allIllustrations,
-    fileFromKeyword: fileFromKeywords_1.fileFromKeyword
+    fileFromKeyword: fileFromKeywords_1.fileFromKeyword,
 };
 exports.default = Query;
 //# sourceMappingURL=Query.js.map

@@ -24,21 +24,27 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
         for (let i = 0; i < n; i++) {
             let x = keywords[i].toLowerCase();
             keywords[i] = x;
-            const keyWordPresent = yield AllKeywords_1.default.find({ type: keywords[i] });
-            if (!keyWordPresent.length) {
+            const keyWordPresent = yield AllKeywords_1.default.findOne({ type: keywords[i] });
+            if (!keyWordPresent) {
                 const newKeyWord = new AllKeywords_1.default({
-                    type: keywords[i]
+                    type: keywords[i],
+                    data: [],
                 });
+                newKeyWord.data.push([url, previewUrl]);
                 yield newKeyWord.save();
                 const newKey = new IllustrationKeyword_1.default({
                     type: keywords[i],
-                    data: []
+                    data: [],
                 });
                 newKey.data.push([url, previewUrl]);
                 yield newKey.save();
             }
             else {
-                const foundKey = yield IllustrationKeyword_1.default.findOne({ type: keywords[i] });
+                keyWordPresent.data.push([url, previewUrl]);
+                yield keyWordPresent.save();
+                const foundKey = yield IllustrationKeyword_1.default.findOne({
+                    type: keywords[i],
+                });
                 if (foundKey) {
                     foundKey.data.push([url, previewUrl]);
                     yield foundKey.save();
@@ -46,7 +52,7 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
                 else {
                     const newKey = new IllustrationKeyword_1.default({
                         type: keywords[i],
-                        data: []
+                        data: [],
                     });
                     newKey.data.push([url, previewUrl]);
                     yield newKey.save();
@@ -55,7 +61,7 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
         }
         const newIllustration = new Illustration_1.default({
             file: url,
-            preview: previewUrl
+            preview: previewUrl,
         });
         yield newIllustration.save();
         let countObject = yield TotalCount_1.default.findOne({ type: "illustration" });
@@ -66,8 +72,8 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
         }
         else {
             countObject = new TotalCount_1.default({
-                type: 'illustration',
-                count: 1
+                type: "illustration",
+                count: 1,
             });
             yield countObject.save();
         }
@@ -76,10 +82,11 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
     catch (e) {
         console.log(e);
         return {
-            key: null, error: {
+            key: null,
+            error: {
                 subject: "Error",
-                message: e
-            }
+                message: e,
+            },
         };
     }
 });

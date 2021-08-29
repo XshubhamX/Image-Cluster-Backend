@@ -25,8 +25,8 @@ const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
             payload: null,
             error: {
                 subject: "Keyword",
-                message: "No keyword"
-            }
+                message: "No keyword",
+            },
         };
     }
     try {
@@ -42,8 +42,8 @@ const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
             payload: null,
             error: {
                 subject: "Query Text",
-                message: e
-            }
+                message: e,
+            },
         };
     }
     if (!elements.length) {
@@ -51,13 +51,15 @@ const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
             payload: null,
             error: {
                 subject: "Query Text",
-                message: "No files"
-            }
+                message: "No files",
+            },
         };
     }
+    let elems = elements.map((e) => e.type);
+    console.log(elems);
     return {
-        payload: elements,
-        error: null
+        payload: elems,
+        error: null,
     };
 });
 exports.imageSearch = imageSearch;
