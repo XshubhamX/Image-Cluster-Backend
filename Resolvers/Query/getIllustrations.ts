@@ -16,7 +16,7 @@ export const allIllustrations = async (
     illus = await Illustrations.find(null, null, {
       skip: args.skip,
       limit: args.limit,
-    });
+    }).sort({ timestamp: -1 });
 
     if (illus.length === 0) {
       return {

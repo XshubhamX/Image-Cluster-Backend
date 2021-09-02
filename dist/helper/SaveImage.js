@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveImage = void 0;
 const ImageKeyword_1 = __importDefault(require("../Model/ImageKeyword"));
 const Images_1 = __importDefault(require("../Model/Images"));
-const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
+const AllFiles_1 = __importDefault(require("../Model/AllFiles"));
 const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
 const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
@@ -64,20 +64,12 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
             preview: previewUrl,
         });
         yield newImage.save();
-        let countObject = yield TotalCount_1.default.findOne({ type: "image" });
-        if (countObject) {
-            const c = countObject.count + 1;
-            countObject.count = c;
-            yield countObject.save();
-        }
-        else {
-            countObject = new TotalCount_1.default({
-                type: "image",
-                count: 1,
-            });
-            yield countObject.save();
-        }
-        return { key: countObject.id, error: null };
+        const add_new_file = new AllFiles_1.default({
+            file: url,
+            preview: previewUrl,
+        });
+        yield add_new_file.save();
+        return { key: add_new_file.id, error: null };
     }
     catch (e) {
         console.log(e);

@@ -18,6 +18,7 @@ const Images_1 = __importDefault(require("../../Model/Images"));
 const IllustrationKeyword_1 = __importDefault(require("../../Model/IllustrationKeyword"));
 const Illustration_1 = __importDefault(require("../../Model/Illustration"));
 const AllKeywords_1 = __importDefault(require("../../Model/AllKeywords"));
+const AllFiles_1 = __importDefault(require("../../Model/AllFiles"));
 const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
     let elements = null;
     let key_present = null;
@@ -49,8 +50,17 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
             }
             break;
         default:
-            key_present = yield AllKeywords_1.default.find({ type: args.key });
-            break;
+            if (!args.key || !args.key.length) {
+                Without_key = yield AllFiles_1.default.find();
+                return {
+                    files: Without_key,
+                    error: null,
+                };
+            }
+            else {
+                key_present = yield AllKeywords_1.default.find({ type: args.key });
+                break;
+            }
     }
     if (!key_present[0]) {
         return {

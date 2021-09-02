@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveVector = void 0;
 const VectorGraphicsKeyword_1 = __importDefault(require("../Model/VectorGraphicsKeyword"));
 const VectorGraphics_1 = __importDefault(require("../Model/VectorGraphics"));
-const TotalCount_1 = __importDefault(require("../Model/TotalCount"));
+const AllFiles_1 = __importDefault(require("../Model/AllFiles"));
 const chalk_1 = require("chalk");
 const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
@@ -41,14 +41,14 @@ const saveVector = (url, keywords) => __awaiter(void 0, void 0, void 0, function
             file: url,
         });
         yield newVector.save();
-        let countObject = yield TotalCount_1.default.findOne({ type: "vector" });
+        let countObject = yield AllFiles_1.default.findOne({ type: "vector" });
         if (countObject) {
             const c = countObject.count + 1;
             countObject.count = c;
             yield countObject.save();
         }
         else {
-            countObject = new TotalCount_1.default({
+            countObject = new AllFiles_1.default({
                 type: "vector",
                 count: 1,
             });

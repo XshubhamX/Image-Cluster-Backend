@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = void 0;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const imageSchema = new Schema({
+const allFilesSchema = new Schema({
     file: {
         type: String,
         required: true,
@@ -12,9 +12,7 @@ const imageSchema = new Schema({
         type: String,
         required: true,
     },
-}, {
-    timestamps: true,
 });
-const ImageSchema = mongoose.model("imageSchema", imageSchema);
-exports.default = ImageSchema;
-//# sourceMappingURL=Images.js.map
+const AllFiles = mongoose.model("allFiles", allFilesSchema);
+exports.default = AllFiles;
+//# sourceMappingURL=AllFiles.js.map

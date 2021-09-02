@@ -1,7 +1,7 @@
 import IllustrationKeyword from "../Model/IllustrationKeyword";
 import Illustration from "../Model/Illustration";
 import { File_Model } from "../Config/TypeDefs";
-import TotalCount from "../Model/TotalCount";
+import AllFiles from "../Model/AllFiles";
 import KeyWord from "../Model/AllKeywords";
 
 export const saveIllustration = async (
@@ -61,21 +61,14 @@ export const saveIllustration = async (
 
     await newIllustration.save();
 
-    let countObject: any = await TotalCount.findOne({ type: "illustration" });
-    if (countObject) {
-      const c = countObject.count + 1;
-      countObject.count = c;
-      await countObject.save();
-    } else {
-      countObject = new TotalCount({
-        type: "illustration",
-        count: 1,
-      });
+    const add_new_file = new AllFiles({
+      file: url,
+      preview: previewUrl,
+    });
 
-      await countObject.save();
-    }
+    await add_new_file.save();
 
-    return { key: countObject.id, error: null };
+    return { key: add_new_file.id, error: null };
   } catch (e) {
     console.log(e);
     return {

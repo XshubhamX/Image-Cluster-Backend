@@ -12,32 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.allIllustrations = void 0;
-const Illustration_1 = __importDefault(require("../../Model/Illustration"));
-const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
-    let illus;
+exports.getAll = void 0;
+const AllFiles_1 = __importDefault(require("../../Model/AllFiles"));
+const getAll = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
+    let all;
     try {
-        illus = yield Illustration_1.default.find(null, null, {
-            skip: args.skip,
-            limit: args.limit,
-        }).sort({ timestamp: -1 });
-        if (illus.length === 0) {
+        all = yield AllFiles_1.default.find().sort({ timestamp: -1 });
+        if (all.length === 0) {
             return {
-                illus: null,
+                all: null,
                 error: {
-                    subject: "No More illustrations",
-                    message: "No more illustrations",
+                    subject: "No More Files",
+                    message: "No more Files",
                 },
             };
         }
         return {
-            illus,
+            all,
             error: null,
         };
     }
     catch (e) {
         return {
-            illus: null,
+            all: null,
             error: {
                 subject: "error",
                 message: "e",
@@ -45,5 +42,5 @@ const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void
         };
     }
 });
-exports.allIllustrations = allIllustrations;
-//# sourceMappingURL=getIllustrations.js.map
+exports.getAll = getAll;
+//# sourceMappingURL=getAll.js.map

@@ -17,17 +17,14 @@ const Images_1 = __importDefault(require("../../Model/Images"));
 const allImages = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
     let images;
     try {
-        images = yield Images_1.default.find(null, null, {
-            skip: args.skip,
-            limit: args.limit,
-        });
+        images = yield Images_1.default.find().sort({ timestamp: -1 });
         if (images.length === 0) {
             return {
                 images: null,
                 error: {
                     subject: "No More images",
-                    message: "No more images"
-                }
+                    message: "No more images",
+                },
             };
         }
         return {
@@ -40,8 +37,8 @@ const allImages = (parent, args, context, info) => __awaiter(void 0, void 0, voi
             images: null,
             error: {
                 subject: "error",
-                message: "e"
-            }
+                message: "e",
+            },
         };
     }
 });

@@ -22,8 +22,8 @@ const Query_1 = __importDefault(require("./Resolvers/Query"));
 const Mutation_1 = __importDefault(require("./Resolvers/Mutation"));
 const download_1 = require("./Middlewares/download");
 dotenv_1.default.config();
-const typeDefs = graphql_import_1.importSchema("./Schema/Schema.graphql");
-const apiLimiter = express_rate_limit_1.default({
+const typeDefs = (0, graphql_import_1.importSchema)("./Schema/Schema.graphql");
+const apiLimiter = (0, express_rate_limit_1.default)({
     windowMs: 60 * 60 * 1000,
     max: 50000,
     message: "Too many requests from this IP, please try again after 15 minutes",
@@ -34,16 +34,16 @@ const resolvers = {
 };
 const PORT = process.env.PORT;
 const pubsub = new apollo_server_express_1.PubSub();
-const app = express_1.default();
+const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use(apiLimiter);
-app.use(xss_clean_1.default());
-app.use(helmet_1.default({
+app.use((0, xss_clean_1.default)());
+app.use((0, helmet_1.default)({
     contentSecurityPolicy: process.env.NODE_ENV === "production" ? undefined : false,
 }));
-app.use(express_mongo_sanitize_1.default());
-app.use(cors_1.default());
-app.use(graphql_upload_1.graphqlUploadExpress());
+app.use((0, express_mongo_sanitize_1.default)());
+app.use((0, cors_1.default)());
+app.use((0, graphql_upload_1.graphqlUploadExpress)());
 app.get("/", (req, res) => res.json({ "KPMG Image Cluster": "v1", status: "healthy" }));
 app.use("/download", download_1.download);
 const httpServer = http_1.default.createServer(app);

@@ -32,8 +32,8 @@ const UploadFile = (parent, args, context, info) => __awaiter(void 0, void 0, vo
         };
     }
     console.log(args.type);
-    const { url, previewUrl } = yield Upload_1.Upload(args.file, args.preview);
-    const { key, error } = yield SaveInDatabase_1.saveInDatabase(args.type, url, args.keywords, previewUrl);
+    const { url, previewUrl } = yield (0, Upload_1.Upload)(args.file, args.preview);
+    const { key, error } = yield (0, SaveInDatabase_1.saveInDatabase)(args.type, url, args.keywords, previewUrl);
     return {
         key,
         error,

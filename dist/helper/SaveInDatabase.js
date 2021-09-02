@@ -18,13 +18,13 @@ const saveInDatabase = (type, url, keywords, previewUrl) => __awaiter(void 0, vo
     console.log(type);
     switch (type) {
         case "image":
-            data = yield SaveImage_1.saveImage(url, keywords, previewUrl);
+            data = yield (0, SaveImage_1.saveImage)(url, keywords, previewUrl);
             break;
         case "vector":
-            data = yield SaveVector_1.saveVector(url, keywords);
+            data = yield (0, SaveVector_1.saveVector)(url, keywords);
             break;
         default:
-            data = yield SaveIllustrator_1.saveIllustration(url, keywords, previewUrl);
+            data = yield (0, SaveIllustrator_1.saveIllustration)(url, keywords, previewUrl);
     }
     return data;
 });

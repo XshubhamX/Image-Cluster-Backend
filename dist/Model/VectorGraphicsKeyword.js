@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const vectorKeywordSchema = new Schema({
     type: {
         type: String,
-        required: true
+        required: true,
     },
     data: [
         [
@@ -16,10 +16,12 @@ const vectorKeywordSchema = new Schema({
             },
             {
                 type: String,
-                required: true
-            }
-        ]
-    ]
+                required: true,
+            },
+        ],
+    ],
+}, {
+    timestamps: true,
 });
 const VectorKeywordSchema = mongoose.model("vectorKeywordSchema", vectorKeywordSchema);
 exports.default = VectorKeywordSchema;

@@ -26,13 +26,13 @@ const search = (parent, args) => __awaiter(void 0, void 0, void 0, function* () 
     }
     switch (args.field) {
         case "image":
-            elements = yield imageSearch_1.imageSearch(args.key);
+            elements = yield (0, imageSearch_1.imageSearch)(args.key);
             break;
         case "illustration":
-            elements = yield illustrationSearch_1.illustrationSearch(args.key);
+            elements = yield (0, illustrationSearch_1.illustrationSearch)(args.key);
             break;
         default:
-            elements = yield allSearch_1.allSearch(args.key);
+            elements = yield (0, allSearch_1.allSearch)(args.key);
     }
     return elements;
 });

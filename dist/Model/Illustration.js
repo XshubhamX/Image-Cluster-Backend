@@ -6,12 +6,14 @@ const Schema = mongoose.Schema;
 const illustrationSchema = new Schema({
     file: {
         type: String,
-        required: true
+        required: true,
     },
     preview: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
+}, {
+    timestamps: true,
 });
 const IllustrationSchema = mongoose.model("illustrationSchema", illustrationSchema);
 exports.default = IllustrationSchema;

@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const illustrationKeywordSchema = new Schema({
     type: {
         type: String,
-        required: true
+        required: true,
     },
     data: [
         [
@@ -16,10 +16,12 @@ const illustrationKeywordSchema = new Schema({
             },
             {
                 type: String,
-                required: true
-            }
-        ]
-    ]
+                required: true,
+            },
+        ],
+    ],
+}, {
+    timestamps: true,
 });
 const IllustrationKeywordSchema = mongoose.model("illustrationKeywordSchema", illustrationKeywordSchema);
 exports.default = IllustrationKeywordSchema;

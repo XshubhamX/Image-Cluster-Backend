@@ -6,12 +6,14 @@ const Schema = mongoose.Schema;
 const vectorSchema = new Schema({
     file: {
         type: String,
-        required: true
+        required: true,
     },
     preview: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
+}, {
+    timestamps: true,
 });
 const VectorSchema = mongoose.model("vectorSchema", vectorSchema);
 exports.default = VectorSchema;

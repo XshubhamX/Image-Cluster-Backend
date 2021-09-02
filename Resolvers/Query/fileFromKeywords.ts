@@ -3,6 +3,7 @@ import Image from "../../Model/Images";
 import IllustrationKey from "../../Model/IllustrationKeyword";
 import Illustration from "../../Model/Illustration";
 import AllKeyword from "../../Model/AllKeywords";
+import AllFiles from "../../Model/AllFiles";
 import {
   Search_Filters,
   File_Return_Data,
@@ -43,8 +44,16 @@ export const fileFromKeyword = async (
       }
       break;
     default:
-      key_present = await AllKeyword.find({ type: args.key });
-      break;
+      if (!args.key || !args.key.length) {
+        Without_key = await AllFiles.find();
+        return {
+          files: Without_key,
+          error: null,
+        };
+      } else {
+        key_present = await AllKeyword.find({ type: args.key });
+        break;
+      }
   }
 
   if (!key_present[0]) {

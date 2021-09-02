@@ -63,6 +63,10 @@ export type Image_Return_Data = {
   images: Image_Data[];
   error: Error;
 };
+export type ALL_Return_Data = {
+  all: Image_Data[];
+  error: Error;
+};
 
 export type Illustration_Return_Data = {
   illus: Illustration_Data[];

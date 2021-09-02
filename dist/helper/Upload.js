@@ -22,7 +22,7 @@ var s3 = new aws_sdk_1.default.S3({
     secretAccessKey: process.env.SECRET_KEY,
     // region: process.env.REGION
 });
-util_1.promisify(s3.upload).bind(s3);
+(0, util_1.promisify)(s3.upload).bind(s3);
 const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(file);
     console.log(preview);

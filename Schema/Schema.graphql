@@ -1,11 +1,11 @@
 type Query {
   Project: String!
-  allImages(skip: Int!, limit: Int!): Image_Return_Data
+  allImages: Image_Return_Data
   # allVectors: []
-  allIllustrations(skip: Int!, limit: Int!): Illustration_Return_Data
+  allIllustrations: Illustration_Return_Data
+  getAll: All_Return_Data
   search(key: String!, field: String!): Search_Data
-  fileFromKeyword(field: String, key: String
-  ): File_Return_Data
+  fileFromKeyword(field: String, key: String): File_Return_Data
 }
 
 type Mutation {
@@ -55,6 +55,10 @@ type File_Set {
 
 type File_Return_Data {
   files: [File_Set]
+  error: Error
+}
+type All_Return_Data {
+  all: [File_Set]
   error: Error
 }
 

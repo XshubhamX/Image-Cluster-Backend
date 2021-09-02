@@ -1,7 +1,7 @@
 import VectorKeyword from "../Model/VectorGraphicsKeyword";
 import Vector from "../Model/VectorGraphics";
 import { File_Model } from "../Config/TypeDefs";
-import TotalCount from "../Model/TotalCount";
+import TotalCount from "../Model/AllFiles";
 import { keyword } from "chalk";
 
 export const saveVector = async (url, keywords) => {

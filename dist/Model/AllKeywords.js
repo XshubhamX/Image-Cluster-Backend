@@ -20,6 +20,8 @@ const allKeywordsSchema = new Schema({
             },
         ],
     ],
+}, {
+    timestamps: true,
 });
 const AllKeywordsSchema = mongoose.model("allKeywords", allKeywordsSchema);
 exports.default = AllKeywordsSchema;

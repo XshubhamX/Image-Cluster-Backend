@@ -12,38 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.allIllustrations = void 0;
+exports.fileFromKeyword = void 0;
+const Images_1 = __importDefault(require("../../Model/Images"));
 const Illustration_1 = __importDefault(require("../../Model/Illustration"));
-const allIllustrations = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
-    let illus;
-    try {
-        illus = yield Illustration_1.default.find(null, null, {
-            skip: args.skip,
-            limit: args.limit,
-        }).sort({ timestamp: -1 });
-        if (illus.length === 0) {
-            return {
-                illus: null,
-                error: {
-                    subject: "No More illustrations",
-                    message: "No more illustrations",
-                },
-            };
-        }
-        return {
-            illus,
-            error: null,
-        };
+const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
+    let elements = null;
+    switch (args.field) {
+        case "image":
+            elements = yield Images_1.default.find().sort({ timestamp: -1 });
+            break;
+        case "illustration":
+            elements = yield Illustration_1.default.find().sort({ timestamp: -1 });
+            break;
+        default:
+            break;
     }
-    catch (e) {
+    if (!elements.length) {
         return {
-            illus: null,
+            files: null,
             error: {
-                subject: "error",
-                message: "e",
+                subject: "Keyword",
+                message: "No image with the keyword",
             },
         };
     }
+    return {
+        files: elements,
+        error: null,
+    };
 });
-exports.allIllustrations = allIllustrations;
-//# sourceMappingURL=getIllustrations.js.map
+exports.fileFromKeyword = fileFromKeyword;
+//# sourceMappingURL=mainPageData.js.map
