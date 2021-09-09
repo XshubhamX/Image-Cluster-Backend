@@ -27,9 +27,16 @@ export const UploadFile = async (
     };
   }
 
-  console.log(args.type);
-
   const { url, previewUrl } = await Upload(args.file, args.preview);
+
+  for (let i = 0; i < args.keywords.length; i++) {
+    args.keywords[i] = args.keywords[i]
+      .replace("$", " ")
+      .replace("%", " ")
+      .replace("/", " ")
+      .replace("&", "and")
+      .replace("''", " ");
+  }
   const { key, error } = await saveInDatabase(
     args.type,
     url,

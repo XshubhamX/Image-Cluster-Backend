@@ -34,7 +34,7 @@ const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* ()
         Key: key,
         Body: fileStream,
     };
-    let url = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
+    let url = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
     try {
         yield s3.upload(params, (e, d) => console.log(d));
     }
@@ -46,7 +46,7 @@ const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* ()
         let { createReadStream, filename } = yield preview;
         fileStream = createReadStream();
         key = `uploads/${shortid_1.default.generate()}-${filename}`;
-        previewUrl = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
+        previewUrl = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
         params = {
             Bucket: process.env.DESTINATION_BUCKET_NAME,
             Key: key,

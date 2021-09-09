@@ -26,7 +26,7 @@ export const Upload = async (file: File, preview: File) => {
     Key: key,
     Body: fileStream,
   };
-  let url = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
+  let url = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
   try {
     await s3.upload(params, (e, d) => console.log(d));
   } catch (e) {
@@ -39,7 +39,7 @@ export const Upload = async (file: File, preview: File) => {
     fileStream = createReadStream();
 
     key = `uploads/${shortid.generate()}-${filename}`;
-    previewUrl = `https://eduyear-website-assets.s3.amazonaws.com/${key}`;
+    previewUrl = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
 
     params = {
       Bucket: process.env.DESTINATION_BUCKET_NAME,

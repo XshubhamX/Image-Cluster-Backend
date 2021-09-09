@@ -31,8 +31,15 @@ const UploadFile = (parent, args, context, info) => __awaiter(void 0, void 0, vo
             },
         };
     }
-    console.log(args.type);
     const { url, previewUrl } = yield (0, Upload_1.Upload)(args.file, args.preview);
+    for (let i = 0; i < args.keywords.length; i++) {
+        args.keywords[i] = args.keywords[i]
+            .replace("$", " ")
+            .replace("%", " ")
+            .replace("/", " ")
+            .replace("&", "and")
+            .replace("''", " ");
+    }
     const { key, error } = yield (0, SaveInDatabase_1.saveInDatabase)(args.type, url, args.keywords, previewUrl);
     return {
         key,
