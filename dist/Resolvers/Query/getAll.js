@@ -17,7 +17,7 @@ const AllFiles_1 = __importDefault(require("../../Model/AllFiles"));
 const getAll = (parent, args, context, info) => __awaiter(void 0, void 0, void 0, function* () {
     let all;
     try {
-        all = yield AllFiles_1.default.find().sort({ timestamp: -1 });
+        all = yield AllFiles_1.default.find().sort({ datefield: -1 });
         if (all.length === 0) {
             return {
                 all: null,

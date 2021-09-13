@@ -13,46 +13,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Upload = void 0;
-const aws_sdk_1 = __importDefault(require("aws-sdk"));
-const shortid_1 = __importDefault(require("shortid"));
-const util_1 = require("util");
-//
-var s3 = new aws_sdk_1.default.S3({
-    accessKeyId: process.env.ACCESS_KEY_ID,
-    secretAccessKey: process.env.SECRET_KEY,
-    // region: process.env.REGION
-});
-(0, util_1.promisify)(s3.upload).bind(s3);
+const cloudinary_1 = __importDefault(require("cloudinary"));
 const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(file);
-    console.log(preview);
     let { createReadStream, filename } = yield file;
     let fileStream = createReadStream();
-    let key = `uploads/${shortid_1.default.generate()}-${filename}`;
-    let params = {
-        Bucket: process.env.DESTINATION_BUCKET_NAME,
-        Key: key,
-        Body: fileStream,
-    };
-    let url = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
+    let url, previewUrl;
+    cloudinary_1.default.v2.config({
+        cloud_name: "https-fstock-vercel-app",
+        api_key: "583559134152936",
+        api_secret: "fLoJI_6_LlQNAGU-MegBngFoGxc",
+    });
     try {
-        yield s3.upload(params, (e, d) => console.log(d));
+        const result = yield new Promise((resolve, reject) => {
+            fileStream.pipe(cloudinary_1.default.v2.uploader.upload_stream((error, result) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(result);
+            }));
+        });
+        console.log(result);
+        //@ts-ignore
+        url = `https://res.cloudinary.com/https-fstock-vercel-app/image/upload/fl_attachment/${result.public_id}.${result.format}`;
     }
-    catch (e) {
-        console.log(e);
+    catch (error) {
+        console.log(error);
     }
-    let previewUrl;
     if (preview) {
         let { createReadStream, filename } = yield preview;
-        fileStream = createReadStream();
-        key = `uploads/${shortid_1.default.generate()}-${filename}`;
-        previewUrl = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
-        params = {
-            Bucket: process.env.DESTINATION_BUCKET_NAME,
-            Key: key,
-            Body: fileStream,
-        };
-        yield s3.upload(params, (e, d) => console.log(d));
+        let fileStream = createReadStream();
+        try {
+            const result = yield new Promise((resolve, reject) => {
+                fileStream.pipe(cloudinary_1.default.v2.uploader.upload_stream((error, result) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve(result);
+                }));
+            });
+            //@ts-ignore
+            previewUrl = result.secure_url;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     return { url, previewUrl };
 });

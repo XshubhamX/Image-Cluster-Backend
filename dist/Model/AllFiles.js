@@ -12,6 +12,8 @@ const allFilesSchema = new Schema({
         type: String,
         required: true,
     },
+}, {
+    timesamps: true,
 });
 const AllFiles = mongoose.model("allFiles", allFilesSchema);
 exports.default = AllFiles;

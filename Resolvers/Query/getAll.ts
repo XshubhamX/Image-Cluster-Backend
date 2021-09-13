@@ -9,7 +9,7 @@ export const getAll = async (
 ): Promise<ALL_Return_Data> => {
   let all: Image_Data[];
   try {
-    all = await AllFiles.find().sort({ timestamp: -1 });
+    all = await AllFiles.find().sort({ datefield: -1 });
 
     if (all.length === 0) {
       return {

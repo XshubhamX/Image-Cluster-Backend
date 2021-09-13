@@ -1,53 +1,57 @@
-import AWS from "aws-sdk";
 import shortid from "shortid";
 import { File } from "../Config/TypeDefs";
-import imageCompression from "browser-image-compression";
-import { promisify } from "util";
-//
-
-var s3 = new AWS.S3({
-  accessKeyId: process.env.ACCESS_KEY_ID,
-  secretAccessKey: process.env.SECRET_KEY,
-  // region: process.env.REGION
-});
-
-promisify(s3.upload).bind(s3);
+import cloudinary from "cloudinary";
 
 export const Upload = async (file: File, preview: File) => {
-  console.log(file);
-  console.log(preview);
   let { createReadStream, filename } = await file;
   let fileStream = createReadStream();
+  let url, previewUrl;
 
-  let key: string = `uploads/${shortid.generate()}-${filename}`;
+  cloudinary.v2.config({
+    cloud_name: "https-fstock-vercel-app",
+    api_key: "583559134152936",
+    api_secret: "fLoJI_6_LlQNAGU-MegBngFoGxc",
+  });
 
-  let params = {
-    Bucket: process.env.DESTINATION_BUCKET_NAME,
-    Key: key,
-    Body: fileStream,
-  };
-  let url = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
   try {
-    await s3.upload(params, (e, d) => console.log(d));
-  } catch (e) {
-    console.log(e);
+    const result: any = await new Promise((resolve, reject) => {
+      fileStream.pipe(
+        cloudinary.v2.uploader.upload_stream((error, result) => {
+          if (error) {
+            reject(error);
+          }
+
+          resolve(result);
+        })
+      );
+    });
+    console.log(result);
+    //@ts-ignore
+    url = `https://res.cloudinary.com/https-fstock-vercel-app/image/upload/fl_attachment/${result.public_id}.${result.format}`;
+  } catch (error) {
+    console.log(error);
   }
-  let previewUrl;
 
   if (preview) {
     let { createReadStream, filename } = await preview;
-    fileStream = createReadStream();
+    let fileStream = createReadStream();
+    try {
+      const result = await new Promise((resolve, reject) => {
+        fileStream.pipe(
+          cloudinary.v2.uploader.upload_stream((error, result) => {
+            if (error) {
+              reject(error);
+            }
 
-    key = `uploads/${shortid.generate()}-${filename}`;
-    previewUrl = `https://f-stock.s3.ap-south-1.amazonaws.com/${key}`;
-
-    params = {
-      Bucket: process.env.DESTINATION_BUCKET_NAME,
-      Key: key,
-      Body: fileStream,
-    };
-
-    await s3.upload(params, (e, d) => console.log(d));
+            resolve(result);
+          })
+        );
+      });
+      //@ts-ignore
+      previewUrl = result.secure_url;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return { url, previewUrl };

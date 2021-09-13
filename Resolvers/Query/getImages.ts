@@ -9,7 +9,7 @@ export const allImages = async (
 ): Promise<Image_Return_Data> => {
   let images: Image_Data[];
   try {
-    images = await Image.find().sort({ timestamp: -1 });
+    images = await Image.find().sort({ datefield: -1 });
 
     if (images.length === 0) {
       return {

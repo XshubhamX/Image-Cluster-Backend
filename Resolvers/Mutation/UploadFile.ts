@@ -23,7 +23,7 @@ export const UploadFile = async (
       error: {
         subject: "Preview",
         message: "Illustrations require Preview",
-      },
+    },
     };
   }
 
