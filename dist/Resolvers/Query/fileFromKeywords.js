@@ -33,6 +33,7 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
                 };
             }
             else {
+                args.key = args.key.trim();
                 key_present = yield ImageKeyword_1.default.find({ type: args.key });
             }
             break;
@@ -45,6 +46,7 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
                 };
             }
             else {
+                args.key = args.key.trim();
                 key_present = yield IllustrationKeyword_1.default.find({ type: args.key });
             }
             break;
@@ -57,6 +59,7 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
                 };
             }
             else {
+                args.key = args.key.trim();
                 key_present = yield AllKeywords_1.default.find({ type: args.key });
                 break;
             }

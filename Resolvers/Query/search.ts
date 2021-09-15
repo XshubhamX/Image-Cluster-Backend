@@ -18,7 +18,6 @@ export const search = async (
       },
     };
   }
-
   switch (args.field) {
     case "image":
       elements = await imageSearch(args.key);

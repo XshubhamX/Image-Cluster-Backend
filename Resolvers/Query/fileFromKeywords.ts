@@ -28,6 +28,7 @@ export const fileFromKeyword = async (
           error: null,
         };
       } else {
+        args.key = args.key.trim();
         key_present = await ImageKey.find({ type: args.key });
       }
       break;
@@ -39,6 +40,7 @@ export const fileFromKeyword = async (
           error: null,
         };
       } else {
+        args.key = args.key.trim();
         key_present = await IllustrationKey.find({ type: args.key });
       }
       break;
@@ -50,6 +52,7 @@ export const fileFromKeyword = async (
           error: null,
         };
       } else {
+        args.key = args.key.trim();
         key_present = await AllKeyword.find({ type: args.key });
         break;
       }
