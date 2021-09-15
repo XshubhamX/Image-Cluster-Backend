@@ -43,7 +43,6 @@ export const imageSearch = async (key: string): Promise<Search_Data> => {
     };
   }
   let elems: string[] = elements.map((e) => e.type);
-  console.log(elems);
 
   return {
     payload: elems,

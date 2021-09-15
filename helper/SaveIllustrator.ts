@@ -11,8 +11,6 @@ export const saveIllustration = async (
 ) => {
   let n = keywords.length;
 
-  console.log(keywords);
-
   try {
     for (let i = 0; i < n; i++) {
       let x = keywords[i].toLowerCase();
@@ -70,7 +68,6 @@ export const saveIllustration = async (
 
     return { key: add_new_file.id, error: null };
   } catch (e) {
-    console.log(e);
     return {
       key: null,
       error: {

@@ -23,19 +23,16 @@ export const UploadFile = async (
       error: {
         subject: "Preview",
         message: "Illustrations require Preview",
-    },
+      },
     };
   }
 
   const { url, previewUrl } = await Upload(args.file, args.preview);
 
   for (let i = 0; i < args.keywords.length; i++) {
-    args.keywords[i] = args.keywords[i]
-      .replace("$", " ")
-      .replace("%", " ")
-      .replace("/", " ")
-      .replace("&", "and")
-      .replace("''", " ");
+    let new_word = args.keywords[i].replace(/[^a-zA-Z ]/g, "");
+    new_word = new_word.replace(/\s+/g, " ").trim();
+    args.keywords[i] = new_word;
   }
   const { key, error } = await saveInDatabase(
     args.type,

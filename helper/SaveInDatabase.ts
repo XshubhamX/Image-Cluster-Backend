@@ -10,7 +10,6 @@ export const saveInDatabase = async (
   previewUrl: string
 ) => {
   let data: Uploaded_File_Response;
-  console.log(type);
   switch (type) {
     case "image":
       data = await saveImage(url, keywords, previewUrl);

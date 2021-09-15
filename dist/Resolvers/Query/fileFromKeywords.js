@@ -26,7 +26,6 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
     switch (args.field) {
         case "image":
             if (!args.key || !args.key.length) {
-                console.log(args.field);
                 Without_key = yield Images_1.default.find();
                 return {
                     files: Without_key,

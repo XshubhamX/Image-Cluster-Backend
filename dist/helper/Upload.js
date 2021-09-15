@@ -32,7 +32,6 @@ const Upload = (file, preview) => __awaiter(void 0, void 0, void 0, function* ()
                 resolve(result);
             }));
         });
-        console.log(result);
         //@ts-ignore
         url = `https://res.cloudinary.com/https-fstock-vercel-app/image/upload/fl_attachment/${result.public_id}.${result.format}`;
     }

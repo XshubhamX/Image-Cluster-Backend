@@ -25,7 +25,6 @@ export const Upload = async (file: File, preview: File) => {
         })
       );
     });
-    console.log(result);
     //@ts-ignore
     url = `https://res.cloudinary.com/https-fstock-vercel-app/image/upload/fl_attachment/${result.public_id}.${result.format}`;
   } catch (error) {

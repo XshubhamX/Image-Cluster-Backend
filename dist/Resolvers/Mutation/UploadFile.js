@@ -33,12 +33,9 @@ const UploadFile = (parent, args, context, info) => __awaiter(void 0, void 0, vo
     }
     const { url, previewUrl } = yield (0, Upload_1.Upload)(args.file, args.preview);
     for (let i = 0; i < args.keywords.length; i++) {
-        args.keywords[i] = args.keywords[i]
-            .replace("$", " ")
-            .replace("%", " ")
-            .replace("/", " ")
-            .replace("&", "and")
-            .replace("''", " ");
+        let new_word = args.keywords[i].replace(/[^a-zA-Z ]/g, "");
+        new_word = new_word.replace(/\s+/g, " ").trim();
+        args.keywords[i] = new_word;
     }
     const { key, error } = yield (0, SaveInDatabase_1.saveInDatabase)(args.type, url, args.keywords, previewUrl);
     return {

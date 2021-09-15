@@ -56,7 +56,6 @@ const imageSearch = (key) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     let elems = elements.map((e) => e.type);
-    console.log(elems);
     return {
         payload: elems,
         error: null,

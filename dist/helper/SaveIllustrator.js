@@ -19,7 +19,6 @@ const AllFiles_1 = __importDefault(require("../Model/AllFiles"));
 const AllKeywords_1 = __importDefault(require("../Model/AllKeywords"));
 const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let n = keywords.length;
-    console.log(keywords);
     try {
         for (let i = 0; i < n; i++) {
             let x = keywords[i].toLowerCase();
@@ -72,7 +71,6 @@ const saveIllustration = (url, keywords, previewUrl) => __awaiter(void 0, void 0
         return { key: add_new_file.id, error: null };
     }
     catch (e) {
-        console.log(e);
         return {
             key: null,
             error: {

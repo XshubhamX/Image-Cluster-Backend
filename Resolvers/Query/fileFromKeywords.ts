@@ -22,7 +22,6 @@ export const fileFromKeyword = async (
   switch (args.field) {
     case "image":
       if (!args.key || !args.key.length) {
-        console.log(args.field);
         Without_key = await Image.find();
         return {
           files: Without_key,

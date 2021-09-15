@@ -15,7 +15,6 @@ const SaveVector_1 = require("./SaveVector");
 const SaveIllustrator_1 = require("./SaveIllustrator");
 const saveInDatabase = (type, url, keywords, previewUrl) => __awaiter(void 0, void 0, void 0, function* () {
     let data;
-    console.log(type);
     switch (type) {
         case "image":
             data = yield (0, SaveImage_1.saveImage)(url, keywords, previewUrl);

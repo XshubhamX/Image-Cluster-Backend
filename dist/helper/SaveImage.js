@@ -29,7 +29,6 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
                     type: keywords[i],
                     data: [],
                 });
-                console.log([url, previewUrl]);
                 newKeyWord.data.push([url, previewUrl]);
                 yield newKeyWord.save();
                 const newKey = new ImageKeyword_1.default({
@@ -72,7 +71,6 @@ const saveImage = (url, keywords, previewUrl) => __awaiter(void 0, void 0, void 
         return { key: add_new_file.id, error: null };
     }
     catch (e) {
-        console.log(e);
         return {
             key: null,
             error: {

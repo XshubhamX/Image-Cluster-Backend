@@ -17,7 +17,6 @@ export const saveImage = async (url, keywords, previewUrl) => {
           type: keywords[i],
           data: [],
         });
-        console.log([url, previewUrl]);
         newKeyWord.data.push([url, previewUrl]);
         await newKeyWord.save();
 
@@ -65,7 +64,6 @@ export const saveImage = async (url, keywords, previewUrl) => {
 
     return { key: add_new_file.id, error: null };
   } catch (e) {
-    console.log(e);
     return {
       key: null,
       error: {
