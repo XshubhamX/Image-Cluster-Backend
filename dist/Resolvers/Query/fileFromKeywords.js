@@ -66,7 +66,7 @@ const fileFromKeyword = (parent, args) => __awaiter(void 0, void 0, void 0, func
     }
     if (!key_present[0]) {
         return {
-            files: null,
+            files: [],
             error: {
                 subject: "Keyword",
                 message: "No image with the keyword",

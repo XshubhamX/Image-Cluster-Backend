@@ -60,7 +60,7 @@ export const fileFromKeyword = async (
 
   if (!key_present[0]) {
     return {
-      files: null,
+      files: [],
       error: {
         subject: "Keyword",
         message: "No image with the keyword",
